@@ -39,14 +39,16 @@ def index():
     return "USERS"
 
 
-@users_blueprint.route('/edit', methods=['GET','PUT'])
+@users_blueprint.route('/edit', methods=['GET'])
 def edit():
     return render_template('edit.html')
 
-
-@users_blueprint.route('/<id>', methods=['POST'])
-def update(id):
-    pass
+@users_blueprint.route('/edit', methods=['POST'])
+def update():
+    upd = User.update(username=request.form['username'],email=request.form['email']).where(User.id==current_user.id)
+    upd.execute()
+    flash('Your detail has been updated.')
+    return redirect(url_for('users.edit'))
 
 @users_blueprint.route('/profile')
 # @login_required
