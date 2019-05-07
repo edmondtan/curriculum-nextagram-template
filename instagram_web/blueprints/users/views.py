@@ -1,18 +1,31 @@
-from flask import Blueprint, render_template
-
+from flask import Blueprint, render_template, request,redirect,url_for,flash
+from models.user import User
+from werkzeug.security import generate_password_hash
+from flask_login import login_required, current_user
 
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
 
-
-@users_blueprint.route('/new', methods=['GET'])
-def new():
-    return render_template('users/new.html')
+@users_blueprint.route('/sign_up', methods=['GET'])
+def sign_up():
+    return render_template('sign_up.html')
 
 
 @users_blueprint.route('/', methods=['POST'])
 def create():
+    user_password = request.form.get('password')
+    hashed_password = generate_password_hash(user_password)
+
+    u=User( username=request.form.get('name'),
+    email=request.form.get('email'),
+    password=hashed_password
+    )
+    if u.save():
+        flash('Successfully SIGN UP')
+        return redirect(url_for('sessions.new'))
+    else:
+        return render_templates("sign_up.html", name=request.args['name'])
     pass
 
 
@@ -26,11 +39,18 @@ def index():
     return "USERS"
 
 
-@users_blueprint.route('/<id>/edit', methods=['GET'])
-def edit(id):
-    pass
+@users_blueprint.route('/edit', methods=['GET','PUT'])
+def edit():
+    return render_template('edit.html')
 
 
 @users_blueprint.route('/<id>', methods=['POST'])
 def update(id):
     pass
+
+@users_blueprint.route('/profile')
+# @login_required
+def profile():
+    return render_template('profile.html')
+
+    

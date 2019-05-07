@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <link rel="icon" href="https://www.asmp.org/colorado/wp-content/uploads/sites/26/2018/06/instagram-logo-A807AD378B-seeklogo.com_.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -15,9 +16,54 @@
     {% endassets %}
 
     {% block header %}{% endblock %}
-    <title>{% block title %}{% endblock %}NEXTAGRAM</title>
+    <title>{% block title %}{% endblock %}Nextagram</title>
   </head>
   <body>
+      <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+          <a class="navbar-brand" href="/" style="font-size: 30px"><img src="https://www.asmp.org/colorado/wp-content/uploads/sites/26/2018/06/instagram-logo-A807AD378B-seeklogo.com_.png" width="35" height="35" className="inline-block align-top" alt="logo"/>│Nextagram</a>
+          <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-5 my-sm-0" type="submit">Search</button>
+          </form> 
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+              {% if not current_user.is_authenticated %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('users.sign_up') }}">Sign up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('sessions.new') }}">Login</a>
+              </li>
+              {% endif %}
+              {% if current_user.is_authenticated %}
+              <li>
+                <a href="{{ url_for('users.edit') }}">Account edit</a>
+              </li>
+              <li>
+                <a href="{{ url_for('sessions.logout') }}">Log Out</a>
+              </li>
+              {% endif %}
+            </ul>
+            
+          </div>
+          
+          
+          
+        </nav>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes style="color:blue">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     {% block content %}
     {% endblock %}
   </body>
