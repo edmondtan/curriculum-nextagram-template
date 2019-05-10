@@ -1,7 +1,17 @@
 {% extends "_layout.html" %}
 {% block content %}
 <h1>Edit</h1>
-<form action={{ url_for("users.update") }} method='POST'>
+<br/>
+    <form action="{{ url_for('users.upload_profile_image') }}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <label for="user_file">Upload Your Profile Picture</label>
+        <br/>
+        <input type="file" name="user_file" onchange="openFile(event)"/>
+        <div><img id='output' style="height: 250px; width: 250px; margin: 5px; border-radius: 50%" src="{{user.profile_image_url}}"/></div>
+        <button type="submit">Upload</button>
+    </form>
+<br/><br/>
+<form action='{{ url_for("users.update") }}' method='POST'>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div class="form-group" >
         <label for="exampleInputEmail1">Username</label>

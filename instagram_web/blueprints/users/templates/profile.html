@@ -1,6 +1,9 @@
 {% extends "_layout.html" %}
 {% block content %}
-<h1  class="title">
-Welcome, {{current_user.username}} !
-</h1>
+<h3>{{user.username}}</h3>
+<div><img id='output' style="height: 230px; width: 230px; margin: 5px; border-radius: 50%" src="{{user.profile_image_url}}"/></div>
+{%for i in pp:%}
+    <span><img style="height: 250px; width: 250px; margin: 5px" src="{{s3}}{{i.posted_image}}"/></span>
+{%endfor%}    
+
 {% endblock %}

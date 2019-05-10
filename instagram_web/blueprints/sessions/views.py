@@ -34,7 +34,7 @@ def create():
     else :
         flash(f"{username_to_check}, login successfully")
         login_user(user,force=True)
-        return redirect(url_for('users.profile'))
+        return redirect(url_for('home'))
 
 @sessions_blueprint.route('/logout')
 # @login_required

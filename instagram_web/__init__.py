@@ -6,6 +6,7 @@ from instagram_web.blueprints.sessions.views import sessions_blueprint
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
 
+
 csrf = CSRFProtect(app)
 
 assets = Environment(app)
