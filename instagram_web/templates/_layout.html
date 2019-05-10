@@ -33,7 +33,7 @@
           };
         </script>
         
-      <nav class="navbar navbar-light">
+      <nav class="navbar navbar-light" style="border-bottom: 1px solid red">
           <a class="navbar-brand" href="/" style="font-size: 30px"><img src="https://www.asmp.org/colorado/wp-content/uploads/sites/26/2018/06/instagram-logo-A807AD378B-seeklogo.com_.png" width="35" height="35" className="inline-block align-top" alt="logo"/>│Nextagram</a>
 
           {% if current_user.is_authenticated %}
@@ -71,7 +71,6 @@
           </div>
           
         </nav>
-        <hr>
       {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul class=flashes style="color:blue">

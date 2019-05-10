@@ -5,7 +5,11 @@ from instagram_web.blueprints.users.views import users_blueprint
 from instagram_web.blueprints.sessions.views import sessions_blueprint
 from flask_assets import Environment, Bundle
 from .util.assets import bundles
+import os
+from .util.google_oauth import oauth
+import config
 
+oauth.init_app(app)
 
 csrf = CSRFProtect(app)
 

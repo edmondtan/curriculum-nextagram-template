@@ -20,6 +20,8 @@ class Config(object):
 class ProductionConfig(Config):
     DEBUG = False
     ASSETS_DEBUG = False
+    GOOGLE_CLIENT_ID=os.getenv("GOOGLE_CLIENT_ID_KEY")
+    GOOGLE_CLIENT_SECRET=os.getenv("GOOGLE_CLIENT_SECRET_KEY")
 
 
 class StagingConfig(Config):
@@ -32,6 +34,8 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
     ASSETS_DEBUG = False
+    GOOGLE_CLIENT_ID=os.getenv("GOOGLE_CLIENT_ID_KEY")
+    GOOGLE_CLIENT_SECRET=os.getenv("GOOGLE_CLIENT_SECRET_KEY")
 
 class TestingConfig(Config):
     TESTING = True
