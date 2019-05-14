@@ -4,6 +4,10 @@ S3_BUCKET                 = os.getenv("S3_BUCKET_NAME")
 S3_KEY                    = os.getenv("S3_ACCESS_KEY")
 S3_SECRET                 = os.getenv("S3_SECRET_ACCESS_KEY")
 S3_LOCATION               = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)
+BT_PUBLIC_KEY             = os.getenv("BT_PUBLIC_KEY")
+BT_PRIVATE_KEY            = os.getenv("BT_PRIVATE_KEY")
+BT_MERCHANT_ID            = os.getenv("BT_MERCHANT_ID")
+# SENDGRID_KEY = os.getenv('SENDGRID_API_KEY')
 
 SECRET_KEY                = os.urandom(32)
 DEBUG                     = True

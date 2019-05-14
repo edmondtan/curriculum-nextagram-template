@@ -1,9 +1,51 @@
-{% extends "_layout.html" %}
-{% block title %}
-  Homepage
-{% endblock %}
-{% block header %}
-{% endblock %}
+{% extends "_layout.html" %} {% block title %} Homepage {% endblock %} 
+{% block header %} {% endblock %} 
 {% block content %}
-<h1>Homepage</h1>
-{% endblock %}
+  <h1 class="text-center">News Feed</h1>
+  <div class="container">
+    <hr />
+    {% for user in users %}
+      {%if user.id == cru:%}
+      {{  continue }}
+      {%else:%}
+    <div class="row mt-2">
+      <div class="col-md-3">
+        <div class="card bg-light mb-3">
+          {% if user.profile_image %}
+          <img
+            src="{{ user.profile_image_url }}"
+            alt="{{ user.username }}"
+            class="card-img-top" style="height: 230px; width: 230px; margin: 5px; border-radius: 50%"
+          />
+          {% endif %}
+          <div class="card-body">
+            <a
+              class="btn btn-outline-info btn-sm"
+              href="{{url_for('users.show', username=user.username)}}"
+              ><h3>{{ user.username }}</h3></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex flex-wrap">
+          {% for image in user.images %}
+          <div class="card">
+            <img
+              src="{{ image.profile_picture_url }}"
+              alt="{{ image.user.username }}"
+              class="card-img-top" style="height: 250px; width: 250px; margin: 5px"
+            />
+            <div class="card-body">
+              {{ image.caption }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <hr />
+    {%endif%}
+    {% endfor %}
+  </div>
+  {% endblock %}

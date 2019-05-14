@@ -34,8 +34,14 @@ def create():
 
 
 @users_blueprint.route('/<username>', methods=["GET"])
+@login_required
 def show(username):
-    pass
+    user = User.get_or_none(User.username == username)
+    if not user:
+        flash(f'No such user found with username: {username}')
+        return redirect(url_for('home'))
+
+    return render_template('profile.html', user=user)
 
 
 @users_blueprint.route('/', methods=["GET"])
@@ -58,20 +64,13 @@ def update():
     flash('Your detail has been updated.')
     return redirect(url_for('users.edit' ,id=current_user.id))
 
-@users_blueprint.route('/profile', methods=["GET"])
-# @login_required
-def profile():
-    pp = ProfilePage.select().where(ProfilePage.user_id == current_user.id)
-    return render_template('profile.html', pp=pp, s3=S3_LOCATION ,user = User.get_or_none(User.id == current_user.id) )
-
 from helpers import *
  
-
 @users_blueprint.route("/upload", methods=["POST"])
 def upload_profile_image():
 
     if "user_file" not in request.files:
-        flash("No user_file key in request.files")
+        flash("No user_file key in request.files/ No file part")
         return redirect(url_for("users.edit" ,id=current_user.id))
 
     file    = request.files["user_file"]
@@ -101,7 +100,15 @@ def upload_profile_image():
     else:
         flash('Unsuccessful upload!')
         return redirect("/")
-    
+
+
+
+@users_blueprint.route('/profile', methods=["GET"])
+# @login_required
+def profile():
+    pp = ProfilePage.select().where(ProfilePage.user_id == current_user.id)
+    return render_template('profile.html', pp=pp, s3=S3_LOCATION ,user = User.get_or_none(User.id == current_user.id),pic=ProfilePage.get_or_none(ProfilePage.user_id == current_user.id), users = User.select(), cru=current_user.id )
+
 @users_blueprint.route("/post", methods=['GET'])
 def post():
     return render_template('for_posting.html')
@@ -113,15 +120,14 @@ def posting():
 
     file    = request.files["user_file"]
 
-    """
-        These attributes are also available
 
-        file.filename               # The actual name of the file
-        file.content_type
-        file.content_length
-        file.mimetype
+        # These attributes are also available
 
-    """
+        # file.filename               # The actual name of the file
+        # file.content_type
+        # file.content_length
+        # file.mimetype
+
 
     if file.filename == "":
         return "Please select a file"

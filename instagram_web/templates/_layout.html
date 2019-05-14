@@ -7,6 +7,8 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.ico') }}">
 
+    <script src="https://js.braintreegateway.com/web/dropin/1.18.0/js/dropin.min.js"></script>
+
     {% assets "home_css" %}
       <link rel="stylesheet" href="{{ ASSET_URL }}">
     {% endassets %}
@@ -60,8 +62,7 @@
               {% endif %}
 
               {% if current_user.is_authenticated %}
-              <div>User page
-              <br/>
+              <div>
                 <a href="{{ url_for('users.edit',id=current_user.id) }}">Account edit</a>
               </br>
                 <a href="{{ url_for('sessions.logout') }}">Log Out</a>
